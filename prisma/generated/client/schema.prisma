@@ -1,0 +1,59 @@
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/client"
+}
+
+model Cleaner {
+  id                  String   @id @default(auto()) @map("_id") @db.ObjectId
+  role                String
+  name                String
+  phone               String
+  email               String
+  serviceType         String
+  time                String // Consider changing this to DateTime if you need precise timestamp values
+  date                DateTime
+  numberOFCleaners    Int // Assuming this is an integer for the number of cleaners
+  locationSpace       String
+  frequencyService    String? // Optional field (nullable)
+  specialRequirements String? // Optional field (nullable)
+  createdAt           DateTime @default(now()) @map("created_at")
+  updatedAt           DateTime @updatedAt @map("updated_at")
+}
+
+model Transport {
+  id                  String   @id @default(auto()) @map("_id") @db.ObjectId
+  role                String
+  name                String
+  phone               String
+  email               String
+  serviceType         String
+  time                String // Use DateTime if it represents a timestamp
+  date                DateTime
+  locationFrom        String
+  locationTo          String
+  frequencyService    String? // Optional field
+  specialRequirements String? // Optional field
+  createdAt           DateTime @default(now()) @map("created_at")
+  updatedAt           DateTime @updatedAt @map("updated_at")
+}
+
+model Helper {
+  id                  String   @id @default(auto()) @map("_id") @db.ObjectId
+  role                String
+  name                String
+  phone               String
+  email               String
+  serviceType         String
+  time                String // Consider changing this to DateTime if needed for more precise time handling
+  date                DateTime
+  location            String
+  frequencyService    String? // Optional field (nullable)
+  specialRequirements String? // Optional field (nullable)
+  createdAt           DateTime @default(now()) @map("created_at")
+  updatedAt           DateTime @updatedAt @map("updated_at")
+}
