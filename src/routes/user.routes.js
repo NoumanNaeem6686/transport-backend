@@ -19,7 +19,6 @@ router.post("/sign-in", signAdminIn);
 
 
 
-// Route to create a new admin user
 router.post("/", createAdminUser);
 
 // Retrieve all users

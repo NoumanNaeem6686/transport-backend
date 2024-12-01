@@ -26,9 +26,9 @@ const UserSchema = new mongoose.Schema(
       required: false,
     },
     isAvailable: {
-      type: Boolean,
+      type: String,
       required: false,
-      default: true
+      default: "true"
     },
     password: {
       type: String,

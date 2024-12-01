@@ -80,9 +80,13 @@ async function getAllUsers(req, res) {
     const query = {}
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 10;
-    const userType = req.query.type ? req.query.type : "admin"
-    query.type = userType
     const totalUsers = await User.countDocuments();
+    console.log(req.query.type)
+    if (req.query.type) {
+      query.type = { $ne: "admin" };
+    } else {
+      query.type = "admin";
+    }
 
     const users = await User.find(query)
       .sort({ _id: -1 })
@@ -180,12 +184,15 @@ async function updateUserById(req, res) {
 const updateUserProfile = async (req, res) => {
   try {
     const userId = req.params.id;
-    const { name, newPassword, profileImage } = req.body;
+    const { name, newPassword, profileImage, isAvailable } = req.body;
     let updatedFields = {};
 
     console.log(req.body)
     if (name) {
       updatedFields.full_name = name;
+    }
+    if (isAvailable) {
+      updatedFields.isAvailable = isAvailable
     }
 
     // Hash and update password if provided

@@ -1,10 +1,14 @@
 const mongoose = require("mongoose");
 require("dotenv").config();
 
-const connectionOptions = {
-  ssl: true,
-};
+// const connectionOptions = {
+//   ssl: true,
+// };
 
+const connectionOptions = {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+};
 const dbUri = process.env.MONGO_URI;
 
 const connectToDatabase = async () => {
