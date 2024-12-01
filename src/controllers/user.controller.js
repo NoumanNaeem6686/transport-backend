@@ -77,12 +77,14 @@ async function createAdminUser(req, res) {
 
 async function getAllUsers(req, res) {
   try {
-    const page = parseInt(req.query.page) || 1; 
-    const limit = parseInt(req.query.limit) || 10; 
-
+    const query = {}
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const userType = req.query.type ? req.query.type : "admin"
+    query.type = userType
     const totalUsers = await User.countDocuments();
 
-    const users = await User.find()
+    const users = await User.find(query)
       .sort({ _id: -1 })
       .skip((page - 1) * limit)
       .limit(limit);
@@ -100,7 +102,7 @@ async function getAllUsers(req, res) {
 
     return res.success({ users }, meta);
   } catch (err) {
-    console.error("Error fetching users:", err); 
+    console.error("Error fetching users:", err);
     return handleError(res, 500, "Server error");
   }
 }
@@ -140,7 +142,6 @@ async function getUserById(req, res) {
     // Slice the timestamps for the current page
     const paginatedTimestamps = user.timeSchedule.slice(startIndex, endIndex);
 
-    // Meta information for pagination
     const meta = {
       currentPage: page,
       pageItems: paginatedTimestamps.length,
@@ -148,7 +149,6 @@ async function getUserById(req, res) {
       totalPages: Math.ceil(totalEntries / limit),
     };
 
-    // Return the paginated timestamps with meta information
     return res.success({ timestamps: paginatedTimestamps, name: user.full_name }, meta);
   } catch (err) {
     console.error("Error fetching user timestamps for user:", err); // Log error details for debugging
@@ -243,7 +243,6 @@ module.exports = {
   getAllUsers,
   getUsers,
   updateUserProfile,
-  authenticateAdmin,
   getUserById,
   updateUserById,
   deleteUserById,

@@ -17,6 +17,19 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    hourRate: {
+      type: Number,
+      required: false,
+    },
+    phone_number: {
+      type: String,
+      required: false,
+    },
+    isAvailable: {
+      type: Boolean,
+      required: false,
+      default: true
+    },
     password: {
       type: String,
       required: true,
