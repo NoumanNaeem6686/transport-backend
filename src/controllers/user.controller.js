@@ -112,8 +112,12 @@ async function getAllUsers(req, res) {
 }
 
 async function getUsers(req, res) {
+
+  const query = {}
+  query.type = { $ne: "admin" }
+  query.isAvailable = "true"
   try {
-    const users = await User.find({ type: "employee" });
+    const users = await User.find(query);
 
     if (!users.length) {
       return res.error({ message: "No users found", status: 404 });

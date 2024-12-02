@@ -4,7 +4,7 @@ const { mongoose } = require("../../config/database");
 const taskSchema = new mongoose.Schema({
     task: {
         type: String,
-        required: false
+        required: true
     },
     title: {
         type: String,
@@ -19,6 +19,14 @@ const taskSchema = new mongoose.Schema({
     },
     dueDate: {
         type: Date,
+        require: true,
+    },
+    startDate: {
+        type: Date,
+        require: true,
+    },
+    startTime: {
+        type: String,
         require: true,
     },
     fileUrl: [
