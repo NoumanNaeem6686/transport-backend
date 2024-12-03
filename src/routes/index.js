@@ -8,6 +8,7 @@ const workRouter = require("./work.routes.js")
 const partnerRouter = require("./partners.routes.js")
 const offerRouter = require("./offer.routes.js")
 const bookingRouter = require("./booking.routes.js")
+const statsRouter = require("./stats.routes.js")
 router.use("/test", testRuleRouter);
 router.use("/users", userRouter);
 router.use("/file", uploadRouter);
@@ -16,5 +17,6 @@ router.use("/tasks", taskRouter);
 router.use("/partner", partnerRouter);
 router.use("/offer", offerRouter);
 router.use("/booking", bookingRouter);
+router.use("/stats", statsRouter);
 module.exports = router;
 
