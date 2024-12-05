@@ -21,11 +21,14 @@ async function signAdminIn(req, res) {
     }
 
     const adminUser = await User.findOne({ email });
+    console.log("🚀 ~ signAdminIn ~ adminUser:", adminUser)
     if (!adminUser) {
       return handleError(res, 401, "Incorrect credentials");
     }
 
+
     const isMatch = await bcrypt.compare(password, adminUser.password);
+    console.log("🚀 ~ signAdminIn ~ isMatch:", isMatch)
     if (isMatch) {
 
       const token = jwt.sign({ id: adminUser._id }, process.env.SECRET, {
