@@ -13,6 +13,8 @@ const offerSchema = new mongoose.Schema(
         from: { type: String },
         to: { type: String },
         helpers: { type: Number },
+        hours: { type: Number },
+        distance: { type: Number },
         workers: { type: Number },
         spaceSize: { type: Number },
         specialRequirements: { type: String },
